@@ -1,8 +1,10 @@
 // Exercice 1
+import { StatusBar } from "react-native";
 import React, { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 
 export default function App() {
+    StatusBar.setBarStyle("dark-content", true);
     const obj = [
         { id: "1", name: "Stan", age: 45 },
         { id: "2", name: "Francine", age: 45 },
@@ -34,18 +36,20 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "stretch",
         // justifyContent: "flex-start", pour afficher en haut on peut tres bien s'en passer du flex-start et rien mettre
-        padding: 10,
+        padding: 6,
         marginTop: 20,
+        // justifyContent: "space-around"
     },
     containerMember: {
         margin: 10,
         justifyContent: "center",
         backgroundColor: "#0898ff",
         alignItems: "center",
+        flexGrow: 1, // permet d'étirer les éléments lorsqu'ils sont l'un en dessous des autres pour remplir toute la view
     },
     memberText: {
         color: "#FFFFFF",
-        padding: 14,
+        padding: 30,
         fontSize: 21,
     },
 });
