@@ -1,7 +1,7 @@
 // Exercice 1
 import { StatusBar } from "react-native";
 import React, { useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, ScrollView } from "react-native";
 
 export default function App() {
     StatusBar.setBarStyle("dark-content", true);
@@ -17,17 +17,19 @@ export default function App() {
     const [family, setFamily] = useState(obj);
 
     return (
-        <View style={styles.container}>
-            {family.map((member) => {
-                return (
-                    <View key={member.id} style={styles.containerMember}>
-                        <Text style={styles.memberText}>
-                            Nom: {member.name} | Age: {member.age}
-                        </Text>
-                    </View>
-                );
-            })}
-        </View>
+      <View style={styles.container}>
+              <ScrollView>
+                {family.map((member) => {
+                    return (
+                        <View key={member.id} style={styles.containerMember}>
+                            <Text style={styles.memberText}>
+                                Nom: {member.name} | Age: {member.age}
+                            </Text>
+                        </View>
+                    );
+                })}
+        </ScrollView>
+            </View>
     );
 }
 
@@ -45,11 +47,10 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         backgroundColor: "#0898ff",
         alignItems: "center",
-        flexGrow: 1, // permet d'étirer les éléments lorsqu'ils sont l'un en dessous des autres pour remplir toute la view
     },
     memberText: {
         color: "#FFFFFF",
         padding: 30,
-        fontSize: 21,
+        fontSize: 40,
     },
 });
