@@ -31,20 +31,21 @@ export default function App() {
 
 const styles = StyleSheet.create({
     container: {
-      flex:1,
-      alignItems: "stretch",
-      justifyContent: "flex-end",
-      padding: 10,
+        flex: 1,
+        alignItems: "stretch",
+        // justifyContent: "flex-start", pour afficher en haut on peut tres bien s'en passer du flex-start et rien mettre
+        padding: 10,
+        marginTop: 20,
     },
-    containerMember:{
-      margin: 10,
-      justifyContent: "center",
-      backgroundColor: "#0898ff",
-      alignItems: "center",
+    containerMember: {
+        margin: 10,
+        justifyContent: "center",
+        backgroundColor: "#0898ff",
+        alignItems: "center",
     },
     memberText: {
-      color: "#FFFFFF",
-      padding: 14,
-      fontSize: 21,
-       },
+        color: "#FFFFFF",
+        padding: 14,
+        fontSize: 21,
+    },
 });
