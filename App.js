@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     container: {
       flex:1,
       alignItems: "stretch",
-      justifyContent: "center",
+      justifyContent: "flex-end",
       padding: 10,
     },
     containerMember:{
@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
       alignItems: "center",
     },
     memberText: {
+      color: "#FFFFFF",
       padding: 14,
       fontSize: 21,
-      color: "#FFFFFF",
        },
 });
