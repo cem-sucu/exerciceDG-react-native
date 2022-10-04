@@ -1,79 +1,52 @@
 // Exercice 1
 import React, { useState } from "react";
-import {
-    StatusBar,
-    View,
-    StyleSheet,
-    Text,
-    ScrollView,
-    RefreshControl,
-    Alert,
-} from "react-native";
+import { StatusBar, View, StyleSheet, Text, FlatList } from "react-native";
 
 export default function App() {
     StatusBar.setBarStyle("dark-content", true);
     const obj = [
-        { id: "1", name: "Stan", age: 45 },
-        { id: "2", name: "Francine", age: 45 },
-        { id: "3", name: "hayley", age: 18 },
-        { id: "4", name: "Steve", age: 14 },
-        { id: "5", name: "Roger", age: 1020 },
-        { id: "6", name: "Klaus", age: 30 },
+        { name: "Stan", age: 45 },
+        { name: "Francine", age: 45 },
+        { name: "hayley", age: 18 },
+        { name: "Steve", age: 14 },
+        { name: "Roger", age: 1020 },
+        { name: "Klaus", age: 30 },
+        { name: "Poli", age: 30 },
+        { name: "Moris", age: 30 },
+        { name: "Zeus", age: 30 },
+        { name: "Athena", age: 30 },
+        { name: "Aphrodite", age: 30 },
     ];
 
     const [family, setFamily] = useState(obj);
     const [refresh, setRefresh] = useState(false);
 
-    //TODO methode1 qui va permettre de rafraichir la page au bout de 2 seconde
-    //TODO fonctionne sur ios
-    /* const wait = (timeout) => {
+    const wait = (timeout) => {
         return new Promise((resolve) => setTimeout(resolve, timeout));
     };
-
     const onRefreshing = React.useCallback(() => {
-        setRefreshing(true);
-        wait(2000).then(() => setRefreshing(false)); //avec le const wait crée cela permet de rafraichr automatique apres 2s
-        console.warn("la page se rafrîchie"); // message warning
-    }); //TODO fin de la methode1*/
-
-    //TODO méthode2 pour rafraichir la page en passant par la validation via le alert généré
-    //TODO elle ne fonctionne pas vraiment avec ios si on utilise le alert et le onpress
-    const onRefresh = () => {
         setRefresh(true);
-        Alert.alert("Infos", "La page a été rafaîchie", [
-            {
-                text: "Compris",
-                onPress: () => console.warn("la page s'est rafraîchie"),
-                style: "cancel",
-            },
-        ]);
-        setRefresh(false);
-    };
-    //TODO fin de la méthode2
+        wait(2000).then(() => setRefresh(false)); //avec le const wait crée cela permet de rafraichr automatique apres 2s
+        console.warn("la page se rafrîchie");
+    });
 
     return (
         <View style={styles.container}>
-            <ScrollView
-                refreshControl={
-                    <RefreshControl
-                        refreshing={refresh}
-                        onRefresh={onRefresh}
-                        tintColor="#dc143c"
-                        title="rafraichisement"
-                        titleColor="#dc143c"
-                    />
-                }
-            >
-                {family.map((member) => {
+            <FlatList
+                data={family}
+                refreshing={false}
+                onRefresh={onRefreshing}
+                renderItem={({ item }) => {
                     return (
-                        <View key={member.id} style={styles.containerMember}>
+                        <View style={styles.containerMember}>
                             <Text style={styles.memberText}>
-                                Nom: {member.name} | Age: {member.age}
+                                Nom: {item.name} | Age: {item.age}
                             </Text>
                         </View>
                     );
-                })}
-            </ScrollView>
+                }}
+                keyExtractor={(item, index) => index.toString()}
+            />
         </View>
     );
 }
@@ -96,6 +69,6 @@ const styles = StyleSheet.create({
     memberText: {
         color: "#FFFFFF",
         padding: 30,
-        fontSize: 40,
+        fontSize: 20,
     },
 });
