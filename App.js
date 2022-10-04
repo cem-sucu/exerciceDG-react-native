@@ -1,6 +1,13 @@
 // Exercice 1
 import React, { useState } from "react";
-import { StatusBar, View, StyleSheet, Text, FlatList } from "react-native";
+import {
+    StatusBar,
+    View,
+    StyleSheet,
+    Text,
+    FlatList,
+    RefreshControl,
+} from "react-native";
 
 export default function App() {
     StatusBar.setBarStyle("dark-content", true);
@@ -11,31 +18,22 @@ export default function App() {
         { name: "Steve", age: 14 },
         { name: "Roger", age: 1020 },
         { name: "Klaus", age: 30 },
-        { name: "Poli", age: 30 },
-        { name: "Moris", age: 30 },
-        { name: "Zeus", age: 30 },
-        { name: "Athena", age: 30 },
-        { name: "Aphrodite", age: 30 },
+        { name: "Poli", age: 99 },
+        { name: "Moris", age: 77 },
+        { name: "Zeus", age: 0 },
+        { name: "Athena", age: 32 },
+        { name: "Aphrodite", age: 8 },
     ];
 
     const [family, setFamily] = useState(obj);
-    const [refresh, setRefresh] = useState(false);
+    const [invert, setInvert] = useState(false);
 
-    const wait = (timeout) => {
-        return new Promise((resolve) => setTimeout(resolve, timeout));
-    };
-    const onRefreshing = React.useCallback(() => {
-        setRefresh(true);
-        wait(2000).then(() => setRefresh(false)); //avec le const wait crée cela permet de rafraichr automatique apres 2s
-        console.warn("la page se rafrîchie");
-    });
+    const onRefresh = () => setInvert(!invert);
 
     return (
         <View style={styles.container}>
             <FlatList
                 data={family}
-                refreshing={false}
-                onRefresh={onRefreshing}
                 renderItem={({ item }) => {
                     return (
                         <View style={styles.containerMember}>
@@ -46,6 +44,11 @@ export default function App() {
                     );
                 }}
                 keyExtractor={(item, index) => index.toString()}
+                horizontal={true}
+                inverted={invert}
+                refreshControl={
+                    <RefreshControl refreshing={false} onRefresh={onRefresh} />
+                }
             />
         </View>
     );
