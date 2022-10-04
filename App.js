@@ -24,8 +24,9 @@ export default function App() {
     const [family, setFamily] = useState(obj);
     const [refresh, setRefresh] = useState(false);
 
-    /*     //TODO methode qui va permettre de rafraichir la page au bout de 2 seconde
-    const wait = (timeout) => {
+    //TODO methode1 qui va permettre de rafraichir la page au bout de 2 seconde
+    //TODO fonctionne sur ios
+    /* const wait = (timeout) => {
         return new Promise((resolve) => setTimeout(resolve, timeout));
     };
 
@@ -33,20 +34,22 @@ export default function App() {
         setRefreshing(true);
         wait(2000).then(() => setRefreshing(false)); //avec le const wait crée cela permet de rafraichr automatique apres 2s
         console.warn("la page se rafrîchie"); // message warning
-    }); //TODO fin de la methode*/
+    }); //TODO fin de la methode1*/
 
-    //TODO méthode pour rafraichir la page en passant par la validation via le alert généré
+    //TODO méthode2 pour rafraichir la page en passant par la validation via le alert généré
+    //TODO elle ne fonctionne pas vraiment avec ios si on utilise le alert et le onpress
     const onRefresh = () => {
         setRefresh(true);
-        Alert.alert("Infos", "voulez vous lancez le refresh ?", [
+        Alert.alert("Infos", "La page a été rafaîchie", [
             {
-                text: "D'accord",
-                onPress: () => console.warn("la page s'est rafraichie"),
+                text: "Compris",
+                onPress: () => console.warn("la page s'est rafraîchie"),
                 style: "cancel",
             },
         ]);
         setRefresh(false);
     };
+    //TODO fin de la méthode2
 
     return (
         <View style={styles.container}>
@@ -57,6 +60,7 @@ export default function App() {
                         onRefresh={onRefresh}
                         tintColor="#dc143c"
                         title="rafraichisement"
+                        titleColor="#dc143c"
                     />
                 }
             >
